@@ -62,14 +62,24 @@
         });
         
         // Create featurelayer from feature service 
-        const layer = new FeatureLayer({ 
+        const surveyLayer = new FeatureLayer({ 
         // URL to the service 
          url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/survey123_909b1e802b464d629b0b03f105e167ec_results/FeatureServer" //Your item URL Goes Here
     });
 
         //add the layer to the map
-        map.add(layer);
+        map.add(surveyLayer);
 
+     //setting up the icon
+        const surveyLayer = {
+        "type": "simple",
+        "symbol": {
+          "type": "picture-marker",
+          "url": "https://raw.githubusercontent.com/chloeheynen/TurtlMap/refs/heads/main/istockphoto-1295939016-612x612-removebg-preview.png",
+          "width": "18px",
+          "height": "18px"
+        }
+      }
 
         // Add the locate widget to the top left corner of the view
         view.ui.add(locateBtn, {
