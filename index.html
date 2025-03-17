@@ -60,7 +60,18 @@
         const locateBtn = new Locate({
           view: viewDiv
         });
-        
+
+        //setting up the icon
+        const turtleRenderer = {
+        "type": "simple",
+        "symbol": {
+          "type": "picture-marker",
+          "url": "https://raw.githubusercontent.com/chloeheynen/TurtlMap/refs/heads/main/istockphoto-1295939016-612x612-removebg-preview.png",
+          "width": "18px",
+          "height": "18px"
+        }
+
+     
         // Create featurelayer from feature service 
         const layer = new FeatureLayer({ 
         // URL to the service 
@@ -70,17 +81,6 @@
 
         //add the layer to the map
         map.add(layer);
-
-     //setting up the icon
-        const turtleRenderer = {
-        "type": "simple",
-        "symbol": {
-          "type": "picture-marker",
-          "url": "https://raw.githubusercontent.com/chloeheynen/TurtlMap/refs/heads/main/istockphoto-1295939016-612x612-removebg-preview.png",
-          "width": "18px",
-          "height": "18px"
-        }
-      }
 
         // Add the locate widget to the top left corner of the view
         view.ui.add(locateBtn, {
