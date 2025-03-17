@@ -65,13 +65,14 @@
         const layer = new FeatureLayer({ 
         // URL to the service 
          url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/survey123_909b1e802b464d629b0b03f105e167ec_results/FeatureServer" //Your item URL Goes Here
+         renderer: turtleRenderer,  //calling the icon
     });
 
         //add the layer to the map
         map.add(layer);
 
      //setting up the icon
-        const layer = {
+        const turtleRenderer = {
         "type": "simple",
         "symbol": {
           "type": "picture-marker",
