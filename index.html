@@ -73,13 +73,13 @@
 
       const popupTurtle = {
             "title": "Turtle Nest Information",
-            "content": "<b>Species:</b> {species}<br><b>Date of Discovery:</b> {field_5}<br><b>Approximate Hatch Date:</b> {approximate_hatch_date}<br><b>Nest Conditions and Environmental Factors:</b> {nest_conditions_and_environment}<br>"
+            "content": "<b>Species:</b> {species}<br><b>Date of Discovery:</b> {field_5}<br><b>Approximate Hatch Date:</b> {approximate_hatch_date}<br><b>Nest Conditions and Environmental Factors:</b> {nest_conditions_and_environment}<br><b>Nest ID:</b> {nest_id}<br>"
         }
 
         const layer = new FeatureLayer({
           url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/survey123_909b1e802b464d629b0b03f105e167ec_results/FeatureServer",
          //adding the popup here
-          outFields: ["species","field_5","approximate_hatch_date","nest_conditions_and_environment"],
+          outFields: ["species","field_5","approximate_hatch_date","nest_conditions_and_environment","nest_id"],
           popupTemplate: popupTurtle,
           renderer: turtleRenderer,
           labelingInfo: [turtleLabels]
