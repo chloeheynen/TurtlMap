@@ -86,7 +86,7 @@
         }
       };
 
-        const turtleLayer = new FeatureLayer({
+        const layer = new FeatureLayer({
           url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/survey123_909b1e802b464d629b0b03f105e167ec_results/FeatureServer",
           outFields: ["*"],
           renderer: turtleRenderer,
@@ -94,7 +94,7 @@
           labelingInfo: [turtleLabels]
         });
 
-        map.add(turtleLayer);
+        map.add(layer);
 
         view.ui.add(locateBtn, {
           position: "top-left"
