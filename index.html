@@ -56,6 +56,11 @@
           view: document.getElementById('viewDiv')
         });
 
+        const popupTemplate = {
+          title: "{Name}",
+          content: "{Description}"
+        }
+        
         const turtleRenderer = {
           "type": "simple",
           "symbol": {
