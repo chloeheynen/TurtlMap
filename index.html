@@ -66,31 +66,17 @@
           }
         };
 
-        const turtleLabels = {
-        symbol: {
-          type: "text",
-          color: "#FFFFFF",
-          haloColor: "#5E8D74",
-          haloSize: "2px",
-          font: {
-            size: "12px",
-            family: "Noto Sans",
-            style: "italic",
-            weight: "normal"
-          }
-        },
-
-        labelPlacement: "above-center",
-        labelExpressionInfo: {
-          expression: ["$feature.species", "$feature.field_5", "$feature.approximate_hatch_date", "$feature.nest_conditions_and_environment"]
+      const popupTurtle = {
+            "title": "Turtle Nest Information",
+            "content": "<b>Species:</b> {species}<br><b>Date of Discovery:</b> {field_5}<br><b>Approximate Hatch Date:</b> {approximate_hatch_date}<br><b>Nest Conditions and Environmental Factors:</b> {nest_conditions_and_environment}<br>"
         }
-      };
 
         const layer = new FeatureLayer({
           url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/survey123_909b1e802b464d629b0b03f105e167ec_results/FeatureServer",
-          outFields: ["*"],
+         //adding the popup here
+          outFields: ["species","field_5","approximate_hatch_date","nest_conditions_and_environment"],
+          popupTemplate: popupTurtle,
           renderer: turtleRenderer,
-
           labelingInfo: [turtleLabels]
         });
 
