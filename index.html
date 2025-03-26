@@ -49,7 +49,7 @@
           container: "viewDiv",
           map: map,
           center: [-81.58, 27.94],
-          zoom: 7
+          zoom: 5
         });
 
         const locateBtn = new Locate({
@@ -76,20 +76,15 @@
             "content": "<b>Species:</b> {species}<br><b>Date of Discovery:</b> {field_5}<br><b>Approximate Hatch Date:</b> {approximate_hatch_date}<br><b>Nest Conditions and Environmental Factors:</b> {nest_conditions_and_environment}<br><b>Nest ID:</b> {nest_id}<br>"
         }
 
-        const turtleLayer = new FeatureLayer({
+        const layer = new FeatureLayer({
           url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/survey123_909b1e802b464d629b0b03f105e167ec_results/FeatureServer",
          //adding the popup here
           outFields: ["species","field_5","approximate_hatch_date","nest_conditions_and_environment","nest_id"],
           popupTemplate: popupTurtle,
           renderer: turtleRenderer
         });
-  
-        const viirsLayer = new ImageryLayer({
-        url: "https://ic.img.arcgis.com/arcgis/rest/services/VIIRS/NighttimeLightsMDNB/ImageServer"
-        });
-        
-        map.add(turtleLayer);
-        map.add(viirsLayer
+
+        map.add(layer);
 
         view.ui.add(locateBtn, {
           position: "top-left"
@@ -102,30 +97,7 @@
         view.ui.add(search, {
           position: "top-right"
         });
-      // Create a dropdown menu for layer selection
-    const layerSelector = document.createElement("select");
-    layerSelector.className = "absolute top-2 right-2 w-20 z-[1000] bg-white";
-    layerSelector.innerHTML = `
-      <option value="turtleLayer">Turtle Layer</option>
-      <option value="viirsLayer">VIIRS Layer</option>
-    `;
-
-    // Add event listener to toggle layers
-    layerSelector.addEventListener("change", (event) => {
-      const selectedLayer = event.target.value;
-      if (selectedLayer === "turtle") {
-        turtleLayer.visible = true;
-        viirsLayer.visible = false;
-      } else if (selectedLayer === "viirs") {
-        turtleLayer.visible = true;
-        viirsLayer.visible = true;
-      }
-    });
-
-    // Add the dropdown to the map view
-    view.ui.add(layerSelector, "manual");
-  });
-
+      });
     </script>
   </head>
   <body>
