@@ -38,7 +38,7 @@
     <script src="https://js.arcgis.com/4.26/"></script>
 
     <script>
-      require(["esri/config", "esri/Map", "esri/views/MapView", "esri/widgets/Locate", "esri/widgets/Search", "esri/layers/FeatureLayer"], function(esriConfig, Map, MapView, Locate, Search, FeatureLayer) {
+      require(["esri/config", "esri/Map", "esri/views/MapView", "esri/widgets/Locate", "esri/widgets/Search", "esri/layers/FeatureLayer","esri/layers/ImageryLayer"], function(esriConfig, Map, MapView, Locate, Search, FeatureLayer, ImageryLayer) {
         esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurGc-b1C5aUrht8KpAuN9a5q6Hl6E2t3P3ZF80nMW6US1rZJu6pkggjRB1xUmNDpf5oGDLc-4U4-Td-zpXeq1eZIjFTkZ2UQvn74bBNYc2ibH1Q10Ul61pdtuRIxTTMWgVb-7-Hd8_QUKPohD8gnlgKi2Cx_UUc6F6K8NoaVmbbPbUus1pQdDN7dyQFY4q81qnyKl61_6ZNHGdrGALPoP28E.AT1_hz92OE2q";
 
         const map = new Map({
@@ -49,7 +49,7 @@
           container: "viewDiv",
           map: map,
           center: [-81.58, 27.94],
-          zoom: 5
+          zoom: 7
         });
 
         const locateBtn = new Locate({
@@ -76,7 +76,7 @@
             "content": "<b>Species:</b> {species}<br><b>Date of Discovery:</b> {field_5}<br><b>Approximate Hatch Date:</b> {approximate_hatch_date}<br><b>Nest Conditions and Environmental Factors:</b> {nest_conditions_and_environment}<br><b>Nest ID:</b> {nest_id}<br>"
         }
 
-        const layer = new FeatureLayer({
+        const turtleLayer = new FeatureLayer({
           url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/survey123_909b1e802b464d629b0b03f105e167ec_results/FeatureServer",
          //adding the popup here
           outFields: ["species","field_5","approximate_hatch_date","nest_conditions_and_environment","nest_id"],
@@ -84,7 +84,12 @@
           renderer: turtleRenderer
         });
 
-        map.add(layer);
+        const viirsLayer = new ImageryLayer({
+      url: "https://ic.img.arcgis.com/arcgis/rest/services/VIIRS/NighttimeLightsMDNB/ImageServer"
+    });
+
+        map.add(turtleLayer);
+        map.add(viirsLayer);
 
         view.ui.add(locateBtn, {
           position: "top-left"
@@ -97,7 +102,43 @@
         view.ui.add(search, {
           position: "top-right"
         });
-      });
+    
+        turtleLayer.when(() => {
+  console.log("Turtle Layer loaded successfully");
+}).catch((error) => {
+  console.error("Error loading Turtle Layer:", error);
+});
+
+viirsLayer.when(() => {
+  console.log("VIIRS Layer loaded successfully");
+}).catch((error) => {
+  console.error("Error loading VIIRS Layer:", error);
+});
+
+      // Create a dropdown menu for layer selection
+    const layerSelector = document.createElement("select");
+    layerSelector.className = "absolute top-2 right-2 w-20 z-[1000] bg-white";
+    layerSelector.innerHTML = `
+      <option value="turtleLayer">Turtle Layer</option>
+      <option value="viirsLayer">VIIRS Layer</option>
+    `;
+
+    // Add event listener to toggle layers
+    layerSelector.addEventListener("change", (event) => {
+      const selectedLayer = event.target.value;
+      if (selectedLayer === "turtle") {
+        turtleLayer.visible = true;
+        viirsLayer.visible = false;
+      } else if (selectedLayer === "viirs") {
+        turtleLayer.visible = true;
+        viirsLayer.visible = true;
+      }
+    });
+
+    // Add the dropdown to the map view
+    view.ui.add(layerSelector, "manual");
+  });
+
     </script>
   </head>
   <body>
