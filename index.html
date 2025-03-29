@@ -39,7 +39,7 @@
 
     <script>
       require(["esri/config", "esri/Map", "esri/views/MapView", "esri/widgets/Locate", "esri/widgets/Search", "esri/layers/FeatureLayer","esri/layers/ImageryLayer"], function(esriConfig, Map, MapView, Locate, Search, FeatureLayer, ImageryLayer) {
-        esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurNAUgv3aeRUmzJ4ckMevLQLfVJhdc-z1-a5rmBvbZM6HiAtWhTkHR1uPqL3lwJdP49LWHB6rjySi-OGZeNP1ea6oiztHSf22dFyO6r4o94L1an9zLTOBsN3vlqSz7k8MyUO9e1udJ3zNViSQ518xOFVwCnGBfyh40rSb4E2X3zsumGVzsUowRjXGPUi8Odwr1Y9iVZinjPQa-7TSBIuR8E4.AT1_EtHHMprs";
+        esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurGc-b1C5aUrht8KpAuN9a5q6Hl6E2t3P3ZF80nMW6US1rZJu6pkggjRB1xUmNDpf5oGDLc-4U4-Td-zpXeq1eZIjFTkZ2UQvn74bBNYc2ibH1Q10Ul61pdtuRIxTTMWgVb-7-Hd8_QUKPohD8gnlgKi2Cx_UUc6F6K8NoaVmbbPbUus1pQdDN7dyQFY4q81qnyKl61_6ZNHGdrGALPoP28E.AT1_hz92OE2q";
 
         const map = new Map({
           basemap: "satellite"
@@ -126,14 +126,18 @@ viirsLayer.when(() => {
     // Add event listener to toggle layers
     layerSelector.addEventListener("change", (event) => {
       const selectedLayer = event.target.value;
-      if (selectedLayer === "turtle") {
+      if (selectedLayer === "turtleLayer") {
         turtleLayer.visible = true;
         viirsLayer.visible = false;
-      } else if (selectedLayer === "viirs") {
-        turtleLayer.visible = true;
+      } else if (selectedLayer === "viirsLayer") {
+        turtleLayer.visible = false;
         viirsLayer.visible = true;
       }
     });
+
+    // Ensure initial visibility states
+    turtleLayer.visible = true;
+    viirsLayer.visible = false;
 
     // Add the dropdown to the map view
     view.ui.add(layerSelector, "manual");
